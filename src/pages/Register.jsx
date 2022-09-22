@@ -56,11 +56,7 @@ const Register = () => {
           <input type="text" placeholder="Username"/>
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
-          <input type="file" id="file" style={{display: 'none'}} />
-          <label htmlFor="file">
-            <img src={Add} alt="" />
-            <span>Add an avatar</span>
-          </label>
+          <input type="file" id="file" />
           <button>Sign Up</button>
           {error && <span>Something Wrong Here ?</span>}
         </form>

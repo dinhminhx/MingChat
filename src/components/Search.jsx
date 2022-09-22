@@ -4,11 +4,12 @@ import { collection, query, where, getDocs, getDoc, setDoc, doc, updateDoc, serv
 import { db } from "../firebase"
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { ChatContext } from '../context/ChatContext';
 const Search = () => {
   const [userName, setUserName] = useState('')
   const [user, setUser] = useState(null)
   const [error, setError] = useState(false)
-
+  const { dispatch } = useContext(ChatContext)
   const { currentUser } = useContext(AuthContext)
 
   const searchUser = async () => {
@@ -28,6 +29,7 @@ const Search = () => {
   }
 
   const handleSelect = async () => {
+    dispatch({type:"CHANGE_USER",payload: user })
     const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid
     try {
       const res = await getDoc(doc(db,"chats",combinedId))
@@ -41,6 +43,7 @@ const Search = () => {
           },
           [combinedId+".date"]:serverTimestamp()
         })
+
         await updateDoc(doc(db,"userChats",user.uid),{
           [combinedId+".userInfo"]:{
             uid:currentUser.uid,
@@ -52,6 +55,8 @@ const Search = () => {
       }
     } catch (error) {
     }
+  setUser(null)
+  setUserName('')
   }
 
   return (
@@ -60,6 +65,7 @@ const Search = () => {
         <input type="text" placeholder="Find a user"
         onChange={(e) => { setUserName(e.target.value) }}
         onKeyDown={handleKeyDown}
+        value={userName}
         />
       </div>
       {error && <span>User not found</span>}
