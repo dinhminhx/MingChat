@@ -73,6 +73,14 @@ const Input = () => {
     setText("");
     setImg(null);
   };
+
+  const handleKeyDown = (e) => {
+    
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  };
+
   return (
     <div className="input">
       <input
@@ -80,6 +88,7 @@ const Input = () => {
         placeholder="Type your message here"
         onChange={(e) => setText(e.target.value)}
         value={text}
+        onKeyDown={handleKeyDown}
       />
       <div className="send">
         <img src={Attach} alt="" />
@@ -88,11 +97,14 @@ const Input = () => {
           style={{ display: "none" }}
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
+          onKeyDown={handleKeyDown}
         />
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label>
-        <button onClick={handleSend} style={{cursor:"pointer"}} >Send</button>
+        <button onClick={handleSend} style={{ cursor: "pointer" }}>
+          Send
+        </button>
       </div>
     </div>
   );

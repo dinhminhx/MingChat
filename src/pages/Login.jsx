@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-
+import Swal from 'sweetalert2';
 const Login = () => {
 
   const navigate = useNavigate();
@@ -14,8 +14,19 @@ const Login = () => {
     const password = e.target[1].value;
     try {
       await signInWithEmailAndPassword(auth, email, password)
+      Swal.fire({
+        icon: 'success',
+        title: 'Successful',
+        showConfirmButton: false,
+        timer: 1500
+      })
       navigate("/")
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
       setError(true)
     }
   }

@@ -14,9 +14,9 @@ const Chat = () => {
       <div className="chatInfo">
         <span>{data.user?.displayName}</span>
         <div className="chatIcons">
-          <img src={Cam} alt="" />
-          <img src={Add} alt="" />
-          <img src={More} alt="" />
+          <img src={Cam} alt="" style={{ cursor: "pointer" }}/>
+          <img src={Add} alt="" style={{ cursor: "pointer" }}/>
+          <img src={More} alt="" style={{ cursor: "pointer" }}/>
         </div>
       </div>
       <Messages />
