@@ -1,5 +1,4 @@
 import React from 'react'
-import Add from "../img/addAvatar.png"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from '../firebase';
 import { useState } from 'react';
